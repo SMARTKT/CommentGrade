@@ -1,7 +1,7 @@
 # TABLE OF CONTENTS  -- MASTER BRANCH
 
 
-We release the source code for feature generation, ground truth generation, and machine learning in the master brach of commentprobe. We will be providing details of each step below:
+We release the source code for feature generation, ground truth generation, and machine learning in the master brach of commentgrade. We will be providing details of each step below:
 
 **1. FEATURE GENERATION**
 
@@ -11,7 +11,7 @@ We release the source code for feature generation, ground truth generation, and 
 
   **3.1. Word Embeddings**
   
-**4. ADDITIONAL ARTIFACTS of COMMENTPROBE -- Company survey examples and questions, comments of manual analysis and comment examples** 
+**4. ADDITIONAL ARTIFACTS of COMMENTGRADE -- Company survey examples and questions, comments of manual analysis and comment examples** 
 
 **5. CUSTOMIZABLE VISUALISATION  -- VISUALIZATION BRANCH**
 
@@ -26,80 +26,80 @@ We release the source code for feature generation, ground truth generation, and 
 
 **1. FEATURE GENERATION**
 
-   _Code Location_: https://github.com/SMARTKT/CommentProbe/tree/master/CommentProbe
+   _Code Location_: https://github.com/SMARTKT/CommentGrade
    *Codes need to be accessed  only from the master branch*
    
    _Description_: The codes ( all .py files) inside this folder is the source code for generating the precomputed 20 features based on comment categories, structure, and code correlation. For the code  correlation features, a separate codebase (all .py files, python wrappers used for clang compiler (LLVM)) needs to be downloaded from a google drive link (https://tinyurl.com/knowledgeGraphSmartKT), which generates the code knowledge graph in form of .xml files corresponding to a .c file
    
-   _Start Script_: https://github.com/SMARTKT/CommentProbe/blob/master/CommentProbe/run_script.py
+   _Start Script_: https://github.com/SMARTKT/CommentGrade/blob/master/CommentGrade/run_script.py
    Calls 5 .py files to extract comment, traverse the code knowledge graph, scope and correlate, generate intermediate and generate final 20 precomputed features for a comment. Arguments are the SD ontology for software development concepts (program_domain.csv), Application Domain Concepts, and the names of the .c files with the full path from the source repository. Hence when for example the libpng project is cloned from github and we want to generate the features for pngimage.c, we need to specify the filename and path starting from the base folder like 'libpng/contrib/libtests/pngimage.c/pngimage.c'
    
-   _Readme part_: Part 1, Part 2, and Part 3 in Readme CommentProbe complete the feature generation process. Shown for libpng project (https://github.com/SMARTKT/CommentProbe.git) as an example
+   _Readme part_: Part 1, Part 2, and Part 3 in Readme CommentGrade complete the feature generation process. Shown for libpng project (https://github.com/SMARTKT/CommentGrade.git) as an example
    
- _Artifacts Released_: Application Domain or Problem Domain concepts specific to 5 projects (https://github.com/SMARTKT/CommentProbe/tree/master/ProblemDomainConcepts) and the SD ontology (software development or program domain concepts), can be downloaded from https://github.com/SMARTKT/CommentProbe/blob/master/CommentProbe/Identifier/program_domain.csv or https://github.com/SMARTKT/CommentProbe/tree/master/Comment_Examples/SD_ONTOLOGY
+ _Artifacts Released_: Application Domain or Problem Domain concepts specific to 5 projects (https://github.com/SMARTKT/CommentGrade/tree/master/ProblemDomainConcepts) and the SD ontology (software development or program domain concepts), can be downloaded from https://github.com/SMARTKT/CommentGrade/blob/master/CommentGrade/Identifier/program_domain.csv or https://github.com/SMARTKT/CommentGrade/tree/master/Comment_Examples/SD_ONTOLOGY
    
 **2. GROUND TRUTH GENERATION**
 
-   _Code Location_: https://github.com/SMARTKT/CommentProbe/tree/master/Concatenation
+   _Code Location_: https://github.com/SMARTKT/CommentGrade/tree/master/Concatenation
      *Codes need to be accessed  only from the master branch*
      
    _Description_: The codes (all .ipynb notebooks) are used to generate labelled data for the features generated from the previous step. The annotation sheets for the comments are used to calculate the ground truth rules developed using annotation labels (referred to C1 to C30, rules 28 and 29 are redundant, rules 10 and 11 are redundant and rule 30 did not generate any definite label, hence the deciding set contains 27 labels) and populate data for quality labels for each comment.  Finally, the comments from different projects with quality labels are merged into a single feature sheet with labels.
    
-   _Start Script_: https://github.com/SMARTKT/CommentProbe/blob/master/Concatenation/GetLabelsFromAnnotatedClasses.ipynb
-   Generates annotation labels for comments from a project and populates the calculated quality class label and annotated labels. The labels are then appended to the feature sheets based on file path and comment text in https://github.com/SMARTKT/CommentProbe/blob/master/Concatenation/PrepareTrainingData.ipynb
+   _Start Script_: https://github.com/SMARTKT/CommentGrade/blob/master/Concatenation/GetLabelsFromAnnotatedClasses.ipynb
+   Generates annotation labels for comments from a project and populates the calculated quality class label and annotated labels. The labels are then appended to the feature sheets based on file path and comment text in https://github.com/SMARTKT/CommentGrade/blob/master/Concatenation/PrepareTrainingData.ipynb
    This generates features + calculated quality class label  sheet for a project
-   Finally, sheets from all projects are merged in https://github.com/SMARTKT/CommentProbe/blob/master/Concatenation/merge_files.ipynb
+   Finally, sheets from all projects are merged in https://github.com/SMARTKT/CommentGrade/blob/master/Concatenation/merge_files.ipynb
    
-   _Readme part_: Part 4 in Readme CommentProbe complete the ground truth and labelled data generation process. Shown for libpng project (https://github.com/SMARTKT/CommentProbe.git) as an example
+   _Readme part_: Part 4 in Readme CommentGrade complete the ground truth and labelled data generation process. Shown for libpng project (https://github.com/SMARTKT/CommentGrade.git) as an example
 
-  _Artifacts Released_: Raw (not processed) annotation sheets for at least two annotators for a set of comments for 5 projects for reference in https://github.com/SMARTKT/CommentProbe/tree/master/Concatenation/ANNOTATED
+  _Artifacts Released_: Raw (not processed) annotation sheets for at least two annotators for a set of comments for 5 projects for reference in https://github.com/SMARTKT/CommentGrade/tree/master/Concatenation/ANNOTATED
   Note: The columns 3 to 15 for an annotation sheet is not used in any calculation of quality labels. Annotator names have been renamed to numbers in the sheet names. Hence Dealli_1.xls means comments annotated by annotator 1
   
   
   **3. INFERENCE USING MACHINE LEARNING**
   
-   _Code Location_: https://github.com/SMARTKT/CommentProbe/tree/master/Concatenation
+   _Code Location_: https://github.com/SMARTKT/CommentGrade/tree/master/Concatenation
      *Codes need to be accessed  only from the master branch*
      
    _Description_: The codes (all .py files) are used to train the labelled data over the proposed LSTM-ANN architecture to learn the model. Further as we also use word vectors only features, we have provided a wrapper class embeddingClass.py to load either elmo or cbow models to extract pre-trained embeddings
    
    _Start Script_: There are 3 parts to the inference based LSTM codes
    
-   a) Extracting the metrics from the saved models trained on 80\% of the total dataset (20206 comments)  - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs
+   a) Extracting the metrics from the saved models trained on 80\% of the total dataset (20206 comments)  - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs
    
-   b) Train  LSTM over a new feature sheet generated with labels (quality classes) - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/exp5
+   b) Train  LSTM over a new feature sheet generated with labels (quality classes) - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/exp5
    
    The three folders have the same structure, the start script is 
-LSTM_endtoend_singleLabel.py is used for training with already saved hyper parameters or you can edit for new ones, can be used to generate only the metrics from the total feature sheet (using a command line argument METRICS, refer Part 5 in Readme CommentProbe). Also as pre trained embeddings based features are used for comment text, functions from the wrapper class embeddingClass.py is used in the file to load the required word mebddings using simple functions calls like load_elmo() over the comment text before feeding into lstm cells. 
+LSTM_endtoend_singleLabel.py is used for training with already saved hyper parameters or you can edit for new ones, can be used to generate only the metrics from the total feature sheet (using a command line argument METRICS, refer Part 5 in Readme CommentGrade). Also as pre trained embeddings based features are used for comment text, functions from the wrapper class embeddingClass.py is used in the file to load the required word mebddings using simple functions calls like load_elmo() over the comment text before feeding into lstm cells. 
 
-The present uploaded state of the LSTM_endtoend_singleLabel.py to extract only metrics  https://github.com/SMARTKT/CommentProbe/blob/master/ML_Experiments/Training_Outputs/LSTM_endtoend_singleLabel.py contains embeddings trained using the elmo model
+The present uploaded state of the LSTM_endtoend_singleLabel.py to extract only metrics  https://github.com/SMARTKT/CommentGrade/blob/master/ML_Experiments/Training_Outputs/LSTM_endtoend_singleLabel.py contains embeddings trained using the elmo model
    
-   _Readme part_: Part 5 in Readme CommentProbe complete the machine learning part.
+   _Readme part_: Part 5 in Readme CommentGrade complete the machine learning part.
 
-  _Artifacts Released_: feature sheet for complete set of comments (Z appended file contains name and path  and pther file contains precomputed features and quality class labels in the same order)-- https://github.com/SMARTKT/CommentProbe/blob/master/ML_Experiments/Training_Outputs/ML_DATASHEETS/LATEST_FEATURES_cal.csv and  https://github.com/SMARTKT/CommentProbe/blob/master/ML_Experiments/Training_Outputs/ML_DATASHEETS/Z_LATEST_FEATURES_cal.csv
+  _Artifacts Released_: feature sheet for complete set of comments (Z appended file contains name and path  and pther file contains precomputed features and quality class labels in the same order)-- https://github.com/SMARTKT/CommentGrade/blob/master/ML_Experiments/Training_Outputs/ML_DATASHEETS/LATEST_FEATURES_cal.csv and  https://github.com/SMARTKT/CommentGrade/blob/master/ML_Experiments/Training_Outputs/ML_DATASHEETS/Z_LATEST_FEATURES_cal.csv
    (20206 comments + additional 100 comments added later, Note: feature names are not very descriptive, we will change)
   console outputs for running lstm
-  https://github.com/SMARTKT/CommentProbe/blob/master/console_output_metrics_cpu.txt
+  https://github.com/SMARTKT/CommentGrade/blob/master/console_output_metrics_cpu.txt
   
-  Saved Models for all folds for the configuration giving the optimal result https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs/MODELS_NEW
+  Saved Models for all folds for the configuration giving the optimal result https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs/MODELS_NEW
   
   
    **3.1. Word Embeddings**
    
-   Word Embeddings for CBOW (10 GB size, 3 files need to be downloaded (https://tinyurl.com/SWVECembeddings) and kept in the same path -https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs, a compressed CBOW (https://github.com/SMARTKT/CommentProbe/blob/master/ML_Experiments/Training_Outputs/CBOW_compressed.bin) trained on lesser data and ELMo (https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs/elmo) and a wrapper embeddingClass.py to select the embeddings you want to use
+   Word Embeddings for CBOW (10 GB size, 3 files need to be downloaded (https://tinyurl.com/SWVECembeddings) and kept in the same path -https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs, a compressed CBOW (https://github.com/SMARTKT/CommentGrade/blob/master/ML_Experiments/Training_Outputs/CBOW_compressed.bin) trained on lesser data and ELMo (https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs/elmo) and a wrapper embeddingClass.py to select the embeddings you want to use
    
    The detailed readme for word embeddings can be found in https://github.com/SMARTKT/WordEmbeddings/blob/master/README.md
   
- **4. ADDITIONAL ARTIFACTS of COMMENTPROBE -- Survey examples and questions, comments of manual analysis and comment examples** 
-  Further, we have released seperately few artifacts of CommentProbe in https://github.com/SMARTKT/CommentProbe/tree/master/Comment_Examples
+ **4. ADDITIONAL ARTIFACTS of COMMENTGrade -- Survey examples and questions, comments of manual analysis and comment examples** 
+  Further, we have released seperately few artifacts of CommentGrade in https://github.com/SMARTKT/CommentGrade/tree/master/Comment_Examples
   
   SD_ONTOLOGY/ --> SD ontology, referred to as program_domain and relations
-  https://github.com/SMARTKT/CommentProbe/blob/master/Comment_Examples/1600_Comments.xlsx   --> 1600 comments from initial manual analysis, Pilot Survey
-  https://github.com/SMARTKT/CommentProbe/blob/master/Comment_Examples/CandidateComments.csv --> Candidate Comments from 1600 comments
-  https://github.com/SMARTKT/CommentProbe/blob/master/Comment_Examples/Structured_Survey_Code_Examples.csv  --> 42 code and comment examples part of directed survey in online platform with github.io links
-  https://github.com/SMARTKT/CommentProbe/blob/master/Comment_Examples/Class_Function_Block%20Level%20Comments.pdf --> Examples of Block / Level Comments from Gitub
-  https://github.com/SMARTKT/CommentProbe/blob/master/Comment_Examples/File_Level_Comments.pdf --> Examples of File Level from Gitub
-  https://github.com/SMARTKT/CommentProbe/blob/master/Comment_Examples/Inline%20Comments.pdf --> Examples of Inline Comments from Gitub
+  https://github.com/SMARTKT/CommentGrade/blob/master/Comment_Examples/1600_Comments.xlsx   --> 1600 comments from initial manual analysis, Pilot Survey
+  https://github.com/SMARTKT/CommentGrade/blob/master/Comment_Examples/CandidateComments.csv --> Candidate Comments from 1600 comments
+  https://github.com/SMARTKT/CommentGrade/blob/master/Comment_Examples/Structured_Survey_Code_Examples.csv  --> 42 code and comment examples part of directed survey in online platform with github.io links
+  https://github.com/SMARTKT/CommentGrade/blob/master/Comment_Examples/Class_Function_Block%20Level%20Comments.pdf --> Examples of Block / Level Comments from Gitub
+  https://github.com/SMARTKT/CommentGrade/blob/master/Comment_Examples/File_Level_Comments.pdf --> Examples of File Level from Gitub
+  https://github.com/SMARTKT/CommentGrade/blob/master/Comment_Examples/Inline%20Comments.pdf --> Examples of Inline Comments from Gitub
   
   
   
@@ -114,21 +114,21 @@ For any queries, you may contact the SmartKT team -- email: Srijoni Majumdar(maj
 
 -----------------------------------------------------------------------------------------------------------------------------------------
     
-# README  Comment Probe
+# README  Comment Grade
 
-This is the official repository for Comment Probe project
+This is the official repository for Comment Grade project
 
 
-## Example - Running Comment Probe for libpng
+## Example - Running Comment Grade for libpng
 
 ### Part 1 - Setting up the project
 
-1. Clone the Comment Probe repository
-`https://github.com/SMARTKT/CommentProbe.git`
+1. Clone the Comment Grade repository
+`https://github.com/SMARTKT/CommentGrade.git`
 
-git clone https://github.com/SMARTKT/CommentProbe.git
+git clone https://github.com/SMARTKT/CommentGrade.git
 
-2. Create a new folder  (say project) for the target Github project you want to run Comment Probe on. 
+2. Create a new folder  (say project) for the target Github project you want to run Comment Grade on. 
 
 ```
 mkdir project
@@ -141,22 +141,22 @@ cd project
 git clone https://github.com/glennrp/libpng.git
 
 ```
-_Rename the folder CommentProbe-master to CommentProbe_
+_Rename the folder CommentGrade-master to CommentGrade_
 The directory structure after this clone
 
 ```
- ├── CommentProbe
+ ├── CommentGrade
  ├── project
  │   ├── libpng
  
  ```
  
-Do a cd .. and go back to the directory containing CommentProbe and project
+Do a cd .. and go back to the directory containing CommentGrade and project
 
 
-### Part 2 - Correlated Knwoledge Graph generation process (developed into a tool named SmartKT)
+### Part 2 - Correlated Knowledge Graph generation process (developed into a tool named SmartKT)
 
-1. Download SmartKT - tool used to generate intermediate output which is used in CommentProbe. The url to download it from is - 
+1. Download SmartKT - tool used to generate intermediate output which is used in CommentGrade. The url to download it from is - 
 `https://tinyurl.com/knowledgeGraphSmartKT`. This will redirect to a Google Drive folder which contains  the zip file - `SmartKT.zip`. Only this file is required. The non zipped version is also there and can be also be downloaded. if you donwloaded the zipped version, extract it (the extraction process will take some time = ~10 mins).
 
 If clang-9 is not set up on the system, then it has to be installed.
@@ -178,7 +178,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:<path to extracted clang-9 folder>/lib"
 
 ```
     .
-    ├── CommentProbe
+    ├── CommentGrade
     ├── project
     │   ├── libpng
     ├── SmartKT
@@ -198,22 +198,22 @@ python initialize.py ../project/libpng
 
 The output of SmartKT gets generated in `SmartKT/outputs/libpng`. Make sure to check the logs in the terminal do not contain any errors and check the output folder `SmartKT/outputs/libpng` to ensure that the output files are generated.
 
-### Part 3 - Running Comment Probe
+### Part 3 - Running Comment Grade
 
-1. Comment probe can be run on multiple C and C++ code files of the target project at once. The requirement is that the clang output file generated by SmartKT in Part 1 should also be present in the same folder as the code. We provide a helper script `copySMKT.py`.
+1. Comment Grade can be run on multiple C and C++ code files of the target project at once. The requirement is that the clang output file generated by SmartKT in Part 1 should also be present in the same folder as the code. We provide a helper script `copySMKT.py`.
 
 ```
-cd ../CommentProbe/CommentProbe
+cd ../CommentGrade/CommentGrade
 mkdir libpng
 python copySMKT.py ../../SmartKT/outputs/libpng libpng
 ```
 
-2. Now CommentProbe needs to be run. This requires setting up parameters in the file `run_script.py`.
-In line 2228, set the list variable `FILES_TO_RUN` to have all of the code files of the target project libpng whose clang xml output file were also generated (check the folder `CommentProbe/CommentProbe/libpng`, they were copied by the helper script `copySMKT.py`)
+2. Now CommentGrade needs to be run. This requires setting up parameters in the file `run_script.py`.
+In line 2228, set the list variable `FILES_TO_RUN` to have all of the code files of the target project libpng whose clang xml output file were also generated (check the folder `CommentGrade/CommentGrade/libpng`, they were copied by the helper script `copySMKT.py`)
 
-3. We provide a problem domain file for libpng in `CommentProbe/ProblemDomainConcepts/libpng_ProblemDomainConcepts.txt`. However, any other custom txt file of same format can also be used. Set the variable `PROBLEM_DOMAIN_FILE` at line 2237 in `run_script.py` to the path of the Problem Domain file.
+3. We provide a problem domain file for libpng in `CommentGrade/ProblemDomainConcepts/libpng_ProblemDomainConcepts.txt`. However, any other custom txt file of same format can also be used. Set the variable `PROBLEM_DOMAIN_FILE` at line 2237 in `run_script.py` to the path of the Problem Domain file.
 
-4. Create a folder CSV inside CommentProbe/CommentProbe/
+4. Create a folder CSV inside CommentGrade/CommentGrade/
 
 5. Run `run_script.py`
 
@@ -226,30 +226,30 @@ Need Stanford parser, openJdk
 
 This requires manually annotated excel sheets.
 
-1. Clear the folders `ANNOTATED`, `GENERATED` and `GENERATED/TRAIN` in `CommentProbe/Concatenation/DATA`
+1. Clear the folders `ANNOTATED`, `GENERATED` and `GENERATED/TRAIN` in `CommentGrade/Concatenation/DATA`
 
-2. Place all of the manually annotated excel sheets in the folder - `CommentProbe/Concatenation/DATA/ANNOTATED`
+2. Place all of the manually annotated excel sheets in the folder - `CommentGrade/Concatenation/DATA/ANNOTATED`
 
-3. Open the jupyter notebook `CommentProbe/Concatenation/GetLabelsFromAnnotatedClasses.ipynb`. Update the parameters mentioned in the second cell, where the parameters to be configured and their details are mentioned. After configuring the parameters, run all of the cells.
+3. Open the jupyter notebook `CommentGrade/Concatenation/GetLabelsFromAnnotatedClasses.ipynb`. Update the parameters mentioned in the second cell, where the parameters to be configured and their details are mentioned. After configuring the parameters, run all of the cells.
 
-4. Open the jupyter notebook `CommentProbe/Concatenation/PrepareTrainingData.ipynb`. Update the parameters mentioned in the second cell, where the parameters to be configured and their details are mentioned. After configuring the parameters, run all cells till 7th cell, observe the outputs of 7th cell and if the list `NOT_FOUND` is non-empty and some files are not detected, make the changes suggested by the 7th cell (some projects may require this manual configuration to solve discrepancies with paths mentioned in annotation sheets). After the 7th cell generates correct output, run all of the remaining cells.
+4. Open the jupyter notebook `CommentGrade/Concatenation/PrepareTrainingData.ipynb`. Update the parameters mentioned in the second cell, where the parameters to be configured and their details are mentioned. After configuring the parameters, run all cells till 7th cell, observe the outputs of 7th cell and if the list `NOT_FOUND` is non-empty and some files are not detected, make the changes suggested by the 7th cell (some projects may require this manual configuration to solve discrepancies with paths mentioned in annotation sheets). After the 7th cell generates correct output, run all of the remaining cells.
 
-5. Open the jupyter notebook `CommentProbe/Concatenation/merge_files.ipynb`. Update the parameters mentioned in the second cell, where the parameters to be configured and their details are mentioned. After configuring the parameters, run all of the cells.
+5. Open the jupyter notebook `CommentGrade/Concatenation/merge_files.ipynb`. Update the parameters mentioned in the second cell, where the parameters to be configured and their details are mentioned. After configuring the parameters, run all of the cells.
 
 
 ### Part 5 - Running Training experiments
 
 In this part we will explain first on the environment setup and then on three versions of the LSTM architecture
 
- a) Extracting the metrics from the saved models trained on 80\% of the total dataset (20206 comments)  - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs
+ a) Extracting the metrics from the saved models trained on 80\% of the total dataset (20206 comments)  - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs
    
- b) Train LSTM over a new feature sheet generated with labels (quality classes) - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/exp5
+ b) Train LSTM over a new feature sheet generated with labels (quality classes) - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/exp5
    
  
  
 ### Part 5.1 Environment Setup
 
-Create a conda environment with python 3.6 (you can create from the environment file https://github.com/SMARTKT/CommentProbe/conda_lstm.yml)
+Create a conda environment with python 3.6 (you can create from the environment file https://github.com/SMARTKT/CommentGrade/conda_lstm.yml)
 After the conda is setup install the following packages using pip, as you will be getting an error that pip packages are not installed
 
 ```
@@ -393,9 +393,9 @@ from optimizers.keras
 ```
 in many cases based on tensorflow version mismatches
 
-### 5.2  Extracting the metrics from the saved models trained on 80\% of the total dataset (20206 comments)  - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs
+### 5.2  Extracting the metrics from the saved models trained on 80\% of the total dataset (20206 comments)  - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs
 
-To run the LSTM codes for extracting only the metrics, it is necessary to first download the pretrained word embeddings SWVEc developed by us
+To run the LSTM codes for extracting only the metrics, it is necessary to first download the pretrained word embeddings SWVEC developed by us
 
 1. Go to link https://tinyurl.com/SWVECembeddings
 Download all the files and folder into the folder ML_Experiments/Training_Ouputs
@@ -408,26 +408,26 @@ Download all the files and folder into the folder ML_Experiments/Training_Ouputs
     ├── Split_Details
 ```
 
-The Github project for the word embeddings is - `https://github.com/SMARTKT/WordEmbeddings`. YOu can look up for further details of how to use it using the python wrapper embeddingClass.py.
+The Github project for the word embeddings is - `https://github.com/SMARTKT/WordEmbeddings`. You can look up for further details of how to use it using the python wrapper embeddingClass.py.
 
 For the LSTM based experiments we have already included it in the codes using the wrapper embeddingClass.py
 
 
- Several experiments have been conducted for the LSTM-ANN Architecture, the h5py files for the experiment which produced the optimal results have been  uploaded in the folder 'https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs/MODELS_NEW' for all the folds (5 fold cross validation was done)
+ Several experiments have been conducted for the LSTM-ANN Architecture, the h5py files for the experiment which produced the optimal results have been  uploaded in the folder 'https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs/MODELS_NEW' for all the folds (5 fold cross validation was done)
 
-The complete set of features for 20206 comments have been provided in 'https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Training_Outputs/ML_DATASHEETS'
+The complete set of features for 20206 comments have been provided in 'https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Training_Outputs/ML_DATASHEETS'
 
 run the below command for only retrieving the metrics
 ```
 python LSTM_endtoend_singleLabel.py METRICS
 
 ```
-The output from the console <<console_output_metrics_cpu.txt>>  https://github.com/SMARTKT/CommentProbe/blob/master/console_output_metrics_cpu.txt
+The output from the console <<console_output_metrics_cpu.txt>>  https://github.com/SMARTKT/CommentGrade/blob/master/console_output_metrics_cpu.txt
 for running on a cpu machine is attached. You can refer for the format of the output and warnings shown.
 
-### 5.3  Train LSTM over a new feature sheet generated with labels (quality classes) - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/exp5
+### 5.3  Train LSTM over a new feature sheet generated with labels (quality classes) - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/exp5
 
-To train LSTM over the feature sheet generated from (Part 4 - Running Concatenation Project), we have released modified version of codes in the same folder structure though. Also the sample datasheets over 200 comments from the libpng project has been provided (https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/exp5/ML_DATASHEETS)
+To train LSTM over the feature sheet generated from (Part 4 - Running Concatenation Project), we have released modified version of codes in the same folder structure though. Also the sample datasheets over 200 comments from the libpng project has been provided (https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/exp5/ML_DATASHEETS)
 
 Go to link https://tinyurl.com/SWVECembeddings
 Download all the files and folder into the folder ML_Experiments/Training_Ouputs
@@ -450,9 +450,9 @@ python LSTM_endtoend_singleLabel.py
 
 ```
 
-The feature values along with the labels (column annotated)  + the predicted labels (column predicted) from CommentProbe can be found in https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/exp5/ML_DATASHEETS/EXTRACTED
+The feature values along with the labels (column annotated)  + the predicted labels (column predicted) from CommentGrade can be found in https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/exp5/ML_DATASHEETS/EXTRACTED
 
-### 5.3.4  Predict  LSTM over a new feature sheet but without any labels (only predicting, will not calculate any metrics) - Folder https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Customizable%20LSTM%20Codes
+### 5.3.4  Predict  LSTM over a new feature sheet but without any labels (only predicting, will not calculate any metrics) - Folder https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Customizable%20LSTM%20Codes
 
 These uses the same code structure but dummy annotation sheets. Hence the annotation sheets for the comments for which you want to predict contains values for the first two columns only which are fileName and comment text.
 
@@ -463,5 +463,5 @@ python LSTM_endtoend_singleLabel.py METRICS
 
 ```
 
-The feature values along with the labels (column annotated)  + the predicted labels (column predicted) from CommentProbe can be found in https://github.com/SMARTKT/CommentProbe/tree/master/ML_Experiments/Customizable%20LSTM%20Codes/ML_DATASHEETS/EXTRACTED
+The feature values along with the labels (column annotated)  + the predicted labels (column predicted) from CommentGrade can be found in https://github.com/SMARTKT/CommentGrade/tree/master/ML_Experiments/Customizable%20LSTM%20Codes/ML_DATASHEETS/EXTRACTED
 However in this case, as we do not have annotated labels (new data) hence Column annotated contains random values and should not be used in computation
